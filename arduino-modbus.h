@@ -4,8 +4,8 @@
 // - extern variable definitions
 // In the appropriate section
 
-#ifndef arduino-modbus_H_
-#define arduino-modbus_H_
+#ifndef ARDUINO_MODBUS_H_
+#define ARDUINO_MODBUS_H_
 
 #include "Arduino.h"
 //add your includes for the project arduino-modbus here
@@ -27,4 +27,4 @@ void setup();
 
 
 //Do not add code below this line
-#endif /* arduino-modbus_H_ */
+#endif /* ARDUINO_MODBUS_H_ */
