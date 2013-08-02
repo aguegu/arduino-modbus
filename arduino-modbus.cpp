@@ -1,4 +1,6 @@
-#include "modbus.h"
+// Do not remove the include below
+#include "arduino-modbus.h"
+
 #include "digitalpin.h"
 #include "slave-rtu.h"
 
@@ -11,3 +13,4 @@ void setup() {
 void loop() {
 	node.handler();
 }
+

@@ -21,4 +21,3 @@ private:
 extern Crc crc;
 
 #endif /* CRC_H_ */
-Pins_Arduino_h
