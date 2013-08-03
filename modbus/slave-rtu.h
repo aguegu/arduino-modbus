@@ -9,7 +9,7 @@
 #define SLAVE_RTU_H_
 
 #include "Arduino.h"
-#include "digitalpin.h"
+#include "digitalpin/digitalpin.h"
 #include "crc.h"
 
 class SlaveRtu {

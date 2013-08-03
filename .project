@@ -28,9 +28,9 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>digitalpin</name>
+			<name>ardulibs</name>
 			<type>2</type>
-			<locationURI>PivateLibPath/digitalpin</locationURI>
+			<locationURI>$%7BWORKSPACE_LOC%7D/ardulibs</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
