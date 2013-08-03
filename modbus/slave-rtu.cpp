@@ -25,9 +25,9 @@ SlaveRtu::SlaveRtu(HardwareSerial & usart, uint8_t address, uint8_t de,
 	_holdings = NULL;
 	_holding_length = 0;
 
-	this->initBitInputs(16);
-	this->initShortInputs(8);
-	this->initCoils(32);
+	this->initBitInputs(8);
+	this->initShortInputs(4);
+	this->initCoils(8);
 	this->initHoldings(16);
 }
 

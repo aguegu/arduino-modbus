@@ -2,9 +2,9 @@
 #include "arduino-modbus.h"
 
 #include "digitalpin/digitalpin.h"
-#include "slave-rtu.h"
+#include "node.h"
 
-SlaveRtu node(Serial, 0x03, 2, 3);
+Node node(Serial, 0x02, 2, 3);
 
 void setup() {
 	node.init();
