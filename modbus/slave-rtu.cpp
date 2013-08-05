@@ -198,9 +198,9 @@ void SlaveRtu::appendCrcAndReply(uint8_t length_tx) {
 }
 
 bool SlaveRtu::checkFrameCrc(const uint8_t *p, uint8_t length) {
-	uint16_t crc0 = crc.calc(p, length - 2);
-	uint16_t crc1 = p[length - 2] | (p[length - 1] << 8);
-	return crc0 == crc1;
+	return crc.calc(p, length) == 0;
+	// if crc matches, the crc calculation result of the whole frame,
+	// including crc, would be 0.
 }
 
 void SlaveRtu::setBitInput(uint16_t index, bool state) {

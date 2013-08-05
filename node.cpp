@@ -12,7 +12,7 @@ Node::Node(HardwareSerial & usart, uint8_t address, uint8_t de, uint8_t re) :
 	this->initBitInputs(1);
 	this->initCoils(1);
 	this->initShortInputs(1);
-	this->initHoldings(0);
+	this->initHoldings(16);
 
 	_coil_pins = (DigitalPin **) malloc(_coil_length * sizeof(DigitalPin *));
 	_coil_pins[0] = new DigitalPin(13, OUTPUT);
@@ -27,11 +27,11 @@ Node::Node(HardwareSerial & usart, uint8_t address, uint8_t de, uint8_t re) :
 Node::~Node() {
 
 	for (uint8_t i = 0; i < _coil_length; i++)
-			delete _coil_pins[i];
+		delete _coil_pins[i];
 	free(_coil_pins);
 
 	for (uint8_t i = 0; i < _bit_input_length; i++)
-			delete _bit_input_pins[i];
+		delete _bit_input_pins[i];
 	free(_bit_input_pins);
 
 	for (uint8_t i = 0; i < _short_input_length; i++)

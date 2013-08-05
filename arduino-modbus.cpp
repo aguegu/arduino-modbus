@@ -4,12 +4,10 @@
 #include "digitalpin/digitalpin.h"
 #include "node.h"
 
-Node node(Serial, 0x02, 2, 3);
+Node node(Serial, 0x03, 2, 3);
 
 void setup() {
 	node.init();
-
-
 }
 
 void loop() {
