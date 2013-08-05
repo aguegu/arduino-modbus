@@ -11,7 +11,7 @@ Node::Node(HardwareSerial & usart, uint8_t address, uint8_t de, uint8_t re) :
 		SlaveRtu(usart, address, de, re) {
 	this->initBitInputs(1);
 	this->initCoils(1);
-	this->initShortInputs(0);
+	this->initShortInputs(1);
 	this->initHoldings(0);
 
 	_coil_pins = (DigitalPin **) malloc(_coil_length * sizeof(DigitalPin *));
@@ -19,6 +19,9 @@ Node::Node(HardwareSerial & usart, uint8_t address, uint8_t de, uint8_t re) :
 
 	_bit_input_pins = (DigitalPin **) malloc(_bit_input_length * sizeof(DigitalPin *));
 	_bit_input_pins[0] = new DigitalPin(12, INPUT_PULLUP);
+
+	_short_input_pins = (AdcPin **) malloc(_short_input_length * sizeof(AdcPin *));
+	_short_input_pins[0] = new AdcPin(A0);
 }
 
 Node::~Node() {
@@ -30,6 +33,10 @@ Node::~Node() {
 	for (uint8_t i = 0; i < _bit_input_length; i++)
 			delete _bit_input_pins[i];
 	free(_bit_input_pins);
+
+	for (uint8_t i = 0; i < _short_input_length; i++)
+		delete _short_input_pins[i];
+	free(_short_input_pins);
 }
 
 void Node::init() {
@@ -45,5 +52,11 @@ uint8_t Node::updateCoils(uint16_t index, uint16_t length) {
 uint8_t Node::updateBitInputs(uint16_t index, uint16_t length) {
 	for (uint16_t i = 0; i < length; i++)
 		this->setBitInput(index + i, _bit_input_pins[index +i]->read());
+	return 0;
+}
+
+uint8_t Node::updateShortInputs(uint16_t index, uint16_t length) {
+	for (uint16_t i = 0; i < length; i++)
+		this->setShortInput(index + i, _short_input_pins[index +i]->read());
 	return 0;
 }

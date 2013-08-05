@@ -8,6 +8,8 @@ Node node(Serial, 0x02, 2, 3);
 
 void setup() {
 	node.init();
+
+
 }
 
 void loop() {

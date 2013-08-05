@@ -14,6 +14,9 @@ time.sleep(1)
 x.write_bit(0, 0, 15)
 print x.read_bit(0, 1)
 
+adc = x.read_register(0, 0, 4, False)
+print "%4d\t%.2f%%" % (adc, adc / 10.23)
+
 '''
 print x.read_bit(1, 2)
 
@@ -23,8 +26,6 @@ print x.read_bit(0, 1)
 x.write_bit(0, 0, 15)
 print x.read_bit(0, 1)
 
-adc = x.read_register(0, 0, 4, False)
-print "%4d\t%.2f%%" % (adc, adc / 40.95)
 adc = x.read_register(1, 0, 4, False)
 print "%4d\t%.2f%%" % (adc, adc / 40.95)
 
