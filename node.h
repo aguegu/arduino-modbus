@@ -18,7 +18,9 @@ public:
 
 private:
 	DigitalPin ** _coil_pins;
+	DigitalPin ** _bit_input_pins;
 	uint8_t updateCoils(uint16_t index, uint16_t length);
+	uint8_t updateBitInputs(uint16_t index, uint16_t length);
 };
 
 #endif /* NODE_H_ */
