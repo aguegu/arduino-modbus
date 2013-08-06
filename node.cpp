@@ -75,5 +75,10 @@ uint8_t Node::updateHoldings(uint16_t index, uint16_t length) {
 }
 
 void Node::process(uint8_t command) {
-	_lcd.putCache();
+	switch (command) {
+	case RTU_WRITE_SINGLE_HOLDING:
+	case RTU_WRTIE_MULTIPLE_HOLDINGS:
+		_lcd.putCache();
+		break;
+	}
 }
