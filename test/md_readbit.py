@@ -20,8 +20,11 @@ print "%4d\t%.2f%%" % (adc, adc / 10.23)
 s = "hello, world."
 reg_len = (len(s) + 1) / 2
 x.write_string(0, s, reg_len)
-x.write_string(8, s, reg_len)
-x.write_string(16, s, reg_len)
+
+t = time.strftime("%Y-%m-%d", time.gmtime())
+x.write_string(8, t, (len(t) + 1) / 2)
+t = time.strftime("%H:%M:%S", time.gmtime())
+x.write_string(16, t, (len(t) + 1) / 2)
 x.write_string(24, s, reg_len)
 
 print x.read_string(0, reg_len, 3)
