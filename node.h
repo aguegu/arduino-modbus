@@ -11,6 +11,7 @@
 #include "modbus/slave-rtu.h"
 #include "digitalpin/digitalpin.h"
 #include "adcpin/adcpin.h"
+#include "drv_hd44780/drv_hd44780.h"
 
 class Node: public SlaveRtu {
 public:
@@ -27,6 +28,12 @@ private:
 
 	AdcPin ** _short_input_pins;
 	uint8_t updateShortInputs(uint16_t index, uint16_t length);
+
+	uint8_t updateHoldings(uint16_t index, uint16_t length);
+
+	void process(uint8_t command);
+
+	DrvHd44780 _lcd;
 };
 
 #endif /* NODE_H_ */

@@ -8,24 +8,25 @@
 #include "node.h"
 
 Node::Node(HardwareSerial & usart, uint8_t address, uint8_t de, uint8_t re) :
-		SlaveRtu(usart, address, de, re) {
+		SlaveRtu(usart, address, de, re), _lcd(9, 8, 7, 6, 5, 4) {
 	this->initBitInputs(1);
 	this->initCoils(1);
 	this->initShortInputs(1);
-	this->initHoldings(16);
+	this->initHoldings(32);
 
 	_coil_pins = (DigitalPin **) malloc(_coil_length * sizeof(DigitalPin *));
 	_coil_pins[0] = new DigitalPin(13, OUTPUT);
 
-	_bit_input_pins = (DigitalPin **) malloc(_bit_input_length * sizeof(DigitalPin *));
+	_bit_input_pins = (DigitalPin **) malloc(
+			_bit_input_length * sizeof(DigitalPin *));
 	_bit_input_pins[0] = new DigitalPin(12, INPUT_PULLUP);
 
-	_short_input_pins = (AdcPin **) malloc(_short_input_length * sizeof(AdcPin *));
+	_short_input_pins = (AdcPin **) malloc(
+			_short_input_length * sizeof(AdcPin *));
 	_short_input_pins[0] = new AdcPin(A0);
 }
 
 Node::~Node() {
-
 	for (uint8_t i = 0; i < _coil_length; i++)
 		delete _coil_pins[i];
 	free(_coil_pins);
@@ -41,6 +42,9 @@ Node::~Node() {
 
 void Node::init() {
 	this->SlaveRtu::init();
+	_lcd.init();
+	_lcd.setCache('/');
+	_lcd.putCache();
 }
 
 uint8_t Node::updateCoils(uint16_t index, uint16_t length) {
@@ -51,12 +55,25 @@ uint8_t Node::updateCoils(uint16_t index, uint16_t length) {
 
 uint8_t Node::updateBitInputs(uint16_t index, uint16_t length) {
 	for (uint16_t i = 0; i < length; i++)
-		this->setBitInput(index + i, _bit_input_pins[index +i]->read());
+		this->setBitInput(index + i, _bit_input_pins[index + i]->read());
 	return 0;
 }
 
 uint8_t Node::updateShortInputs(uint16_t index, uint16_t length) {
 	for (uint16_t i = 0; i < length; i++)
-		this->setShortInput(index + i, _short_input_pins[index +i]->read());
+		this->setShortInput(index + i, _short_input_pins[index + i]->read());
 	return 0;
+}
+
+uint8_t Node::updateHoldings(uint16_t index, uint16_t length) {
+	for (uint16_t i = 0; i < length; i++) {
+		uint16_t j = index + i;
+		_lcd.setCache(j + j, highByte(this->getHolding(j)));
+		_lcd.setCache(j + j + 1, lowByte(this->getHolding(j)));
+	}
+	return 0;
+}
+
+void Node::process(uint8_t command) {
+	_lcd.putCache();
 }

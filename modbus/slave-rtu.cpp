@@ -133,25 +133,25 @@ void SlaveRtu::handler() {
 			uint8_t exception = 0;
 
 			switch (_buff_rx[1]) {
-			case 0x01:
+			case RTU_READ_COILS:
 				exception = onReadCoils(&length_tx);
 				break;
-			case 0x02:
+			case RTU_READ_BIT_INPUTS:
 				exception = onReadBitInputs(&length_tx);
 				break;
-			case 0x03:
+			case RTU_READ_HOLDINGS:
 				exception = onReadHoldings(&length_tx);
 				break;
-			case 0x04:
+			case RTU_READ_SHORT_INPUTS:
 				exception = onReadShortInputs(&length_tx);
 				break;
-			case 0x05:
+			case RTU_WRITE_SINGLE_COIL:
 				exception = onWriteSingleCoil(&length_tx);
 				break;
-			case 0x06:
+			case RTU_WRITE_SINGLE_HOLDING:
 				exception = onWriteSingleHolding(&length_tx);
 				break;
-			case 0x0f:
+			case RTU_WRITE_MULTIPLE_COILS:
 				exception = onWriteMultipleCoils(length_rx, &length_tx);
 				break;
 			case 0x10:
@@ -170,6 +170,8 @@ void SlaveRtu::handler() {
 
 			if (_buff_tx[0])
 				this->appendCrcAndReply(length_tx);
+
+			this->process(_buff_rx[1]);
 
 		} while (false);
 

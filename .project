@@ -28,9 +28,19 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>SPI</name>
+			<type>2</type>
+			<locationURI>ArduinoLibPath/SPI</locationURI>
+		</link>
+		<link>
 			<name>ardulibs</name>
 			<type>2</type>
 			<locationURI>$%7BWORKSPACE_LOC%7D/ardulibs</locationURI>
+		</link>
+		<link>
+			<name>dot-matrix</name>
+			<type>2</type>
+			<location>/home/agu/gitpool/dot-matrix</location>
 		</link>
 	</linkedResources>
 </projectDescription>
