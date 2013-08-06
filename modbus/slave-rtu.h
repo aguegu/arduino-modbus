@@ -12,6 +12,15 @@
 #include "digitalpin/digitalpin.h"
 #include "crc.h"
 
+#define RTU_READ_COILS	0x01
+#define RTU_READ_BIT_INPUTS 0x02
+#define RTU_READ_HOLDINGS	0X03
+#define RTU_READ_SHORT_INPUTS	0x04
+#define RTU_WRITE_SINGLE_COIL	0x05
+#define RTU_WRITE_SINGLE_HOLDING	0x06
+#define RTU_WRITE_MULTIPLE_COILS	0x0f
+#define RTU_WRTIE_MULTIPLE_HOLDINGS	0x10
+
 class SlaveRtu {
 public:
 	SlaveRtu(HardwareSerial & usart, uint8_t address, uint8_t de, uint8_t re);
@@ -45,10 +54,12 @@ protected:
 	uint16_t _short_input_length;
 	uint16_t _holding_length;
 
-	virtual uint8_t updateBitInputs(uint16_t index, uint16_t length) {return 0;};
-	virtual uint8_t updateShortInputs(uint16_t index, uint16_t length) {return 0;};
-	virtual uint8_t updateCoils(uint16_t index, uint16_t length) {return 0;};
-	virtual uint8_t updateHoldings(uint16_t index, uint16_t length) {return 0;};
+	virtual uint8_t updateBitInputs(uint16_t index, uint16_t length) {return 0;}
+	virtual uint8_t updateShortInputs(uint16_t index, uint16_t length) {return 0;}
+	virtual uint8_t updateCoils(uint16_t index, uint16_t length) {return 0;}
+	virtual uint8_t updateHoldings(uint16_t index, uint16_t length) {return 0;}
+
+	virtual void process(uint8_t command) {}
 
 private:
 	HardwareSerial & _usart;
