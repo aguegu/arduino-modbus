@@ -86,18 +86,25 @@ void SlaveRtu::init() {
 	_de.set(LOW);
 	_re.set(LOW);
 
-#if defined(TCCR2A) && defined(TCCR2B)
-	TIMER_CS(TCCR2B, 2, TIMER_WITHOUT_EXT_CLK_CS_128);
-	TIMER_3BIT_WAVEFORM(2, TIMER_3BIT_WAVEFORM_CTC);
-	// (11/19200) * 3.5 / (1/(16000000/128))
-	OCR2A = 250;
-	cbi(TIMSK2, OCIE2A);
-#else
-#error Timer 2 reg not found
+//#if defined(TCCR2A) && defined(TCCR2B)
+//	TIMER_CS(TCCR2B, 2, TIMER_WITHOUT_EXT_CLK_CS_128);
+//	TIMER_3BIT_WAVEFORM(2, TIMER_3BIT_WAVEFORM_CTC);
+//	// (11/19200) * 3.5 / (1/(16000000/128))
+//	OCR2A = 250;
+//	cbi(TIMSK2, OCIE2A);
+//#else
+//	#error Timer 2 reg not found
+//#endif
+
+#if defined(TCCR1A) && defined(TCCR1B)
+	TIMER_CS(TCCR1B, 1, TIMER_WITH_EXT_CLK_CS_256);
+	TIMER_4BIT_WAVEFORM(1, TIMER_4BIT_WAVEFROM_CTC_OCR1A);
+	// (11/19200) * 3.5 / (1/(16000000/256))
+	OCR1A = 500;
+	cbi(TIMSK1, OCIE1A);
 #endif
 
 	_usart.begin(19200, SERIAL_8E1);
-
 }
 
 void SlaveRtu::handler() {
@@ -106,9 +113,9 @@ void SlaveRtu::handler() {
 
 	if (_usart.available()) {
 		_buff_rx[length_rx++] = _usart.read();
-		TCNT2 = 0;
-		sbi(TIMSK2, OCIE2A);
-		TIMER_CS(TCCR2B, 2, TIMER_WITHOUT_EXT_CLK_CS_128);
+		TCNT1 = 0;
+		sbi(TIMSK1, OCIE1A);
+		TIMER_CS(TCCR1B, 1, TIMER_WITH_EXT_CLK_CS_256);
 	}
 
 	if (_is_receiving == false) {
@@ -402,9 +409,9 @@ uint8_t SlaveRtu::onWriteMultipleHoldings(uint8_t length_rx,
 	return 0;
 }
 
-ISR(TIMER2_COMPA_vect) {
-	TIMER_CS(TCCR2B, 2, TIMER_WITHOUT_EXT_CLK_CS_NUL);
-	cbi(TIMSK2, OCIE2A);
+ISR(TIMER1_COMPA_vect) {
+	TIMER_CS(TCCR1B, 1, TIMER_WITH_EXT_CLK_CS_NUL);
+	cbi(TIMSK1, OCIE1A);
 	extern SlaveRtu node;
 	node.onTimIrq();
 }
