@@ -2,7 +2,7 @@
 import minimalmodbus
 import time
 
-x = minimalmodbus.Instrument('/dev/ttyUSB0', 3) 
+x = minimalmodbus.Instrument('/dev/ttyACM0', 3) 
 x.serial.parity = 'E'
 
 print x.read_bit(0, 2);
