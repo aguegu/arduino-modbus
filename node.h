@@ -11,6 +11,7 @@
 #include "modbus/slave-rtu.h"
 #include "digitalpin/digitalpin.h"
 #include "adcpin/adcpin.h"
+#include "ds18b20/ds18b20.h"
 
 class Node: public SlaveRtu {
 public:
@@ -27,6 +28,11 @@ private:
 
 	AdcPin ** _short_input_pins;
 	uint8_t updateShortInputs(uint16_t index, uint16_t length);
+
+	Ds18b20 *_tmp;
+
+	static const uint8_t _uuid[];
+	static const uint8_t _lengths[];
 };
 
 #endif /* NODE_H_ */

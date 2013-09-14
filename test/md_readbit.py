@@ -4,6 +4,7 @@ import time
 
 x = minimalmodbus.Instrument('/dev/ttyACM0', 3) 
 x.serial.parity = 'E'
+#x.serial.timeout = 0.1
 
 print x.read_bit(0, 2);
 
@@ -15,7 +16,7 @@ x.write_bit(0, 0, 15)
 print x.read_bit(0, 1)
 
 adc = x.read_register(0, 0, 4, False)
-print "%4d\t%.2f%%" % (adc, adc / 10.23)
+print "%4d\t%.2f%%" % (adc, adc / 16.0)
 
 x.write_string(10, "hello", 3)
 print x.read_string(10, 3, 3)

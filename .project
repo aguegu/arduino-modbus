@@ -28,6 +28,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>OneWire</name>
+			<type>2</type>
+			<locationURI>ArduinoLibPath/OneWire</locationURI>
+		</link>
+		<link>
 			<name>ardulibs</name>
 			<type>2</type>
 			<locationURI>$%7BWORKSPACE_LOC%7D/ardulibs</locationURI>
