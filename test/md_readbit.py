@@ -4,7 +4,6 @@ import time
 
 x = minimalmodbus.Instrument('/dev/ttyACM0', 3) 
 x.serial.parity = 'E'
-#x.serial.timeout = 0.1
 print "uuid: %s" % x.read_string(0, 16, 4)
 
 print
