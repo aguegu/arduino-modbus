@@ -33,4 +33,15 @@
 			<locationURI>$%7BWORKSPACE_LOC%7D/ardulibs</locationURI>
 		</link>
 	</linkedResources>
+	<filteredResources>
+		<filter>
+			<id>1379153037197</id>
+			<name></name>
+			<type>22</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-*.ino</arguments>
+			</matcher>
+		</filter>
+	</filteredResources>
 </projectDescription>

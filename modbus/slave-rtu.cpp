@@ -91,7 +91,7 @@ void SlaveRtu::init() {
 	TIMER_3BIT_WAVEFORM(2, TIMER_3BIT_WAVEFORM_CTC);
 	// (11/19200) * 3.5 / (1/(16000000/128))
 	OCR2A = 250;
-	cbi(TIMSK2, OCIE2A);
+	sbi(TIMSK2, OCIE2A);
 #else
 #error Timer 2 reg not found
 #endif
