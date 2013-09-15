@@ -2,7 +2,7 @@
 import minimalmodbus
 import time
 
-x = minimalmodbus.Instrument('/dev/ttyACM0', 3) 
+x = minimalmodbus.Instrument('/dev/ttyUSB0', 3) 
 x.serial.parity = 'E'
 print "uuid: %s" % x.read_string(0, 16, 4)
 
